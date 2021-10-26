@@ -22,7 +22,7 @@ class Spider:
         self.crawl_page('First spider',Spider.base_url)
  
     @staticmethod
-    def boot():
+    def boot():                                                  #to create a brand new project
         create_project_dir(Spider.project_name)
         create_data_files(Spider.project_name,Spider.base_url)
         Spider.queue = file_to_set(Spider.queue_file)
