@@ -1,14 +1,14 @@
-from html.parser import HTMLParser
-from urllib import parse
+from html.parser import HTMLParser                   #extarct links from HTML page
+from urllib import parse                             
  
-class LinkFinder(HTMLParser):
+class LinkFinder(HTMLParser):                        # to extract links from HTML page
  
  
     def __init__(self,base_url,page_url):
         super().__init__()
         self.base_url = base_url
         self.page_url = page_url
-        self.links = set()
+        self.links = set() 
  
     def error(self, message):
         pass
