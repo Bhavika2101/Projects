@@ -1,29 +1,30 @@
-import json
-from difflib import get_close_matches
-data = json.load(open("data.json"))
-def translate(w):
-    w = w.lower()
-    if w in data:
-        return data[w]
-    elif w.title() in data:
-        return data[w.title()]
-    elif w.upper() in data: #in case user enters words like USA or NATO
-        return data[w.upper()]
-    elif len(get_close_matches(w, data.keys())) > 0:
-        yn = input("Did you mean %s instead? Enter Y if yes, or N if no: " % get_close_matches(w, data.keys()))
-        if yn == "Y":
-            correct=input("Enter the word again:")
-            return data[correct]
-        elif yn == "N":
-            return "The word doesn't exist. Please double check it."
-        else:
-            return "We didn't understand your entry."
+import time
+from datetime import datetime as dt
+
+ho = "hosts"
+temp = r"E:\Python Apps\App3\hosts"
+hosts_path = r"C:\Windows\System32\drivers\etc\hosts"
+redirect = "35.156.90.191"
+webList = ["www.netflix.com","netflix.com", "www.primevideo.com", "www.hotstar.com","primevideo.com","hotstar.com"]
+
+
+while True:
+    if dt(dt.now().year,dt.now().month,dt.now().day,8) < dt.now() <  dt(dt.now().year,dt.now().month,dt.now().day,16):
+        print("working hours!!")
+        with open(ho , 'r+') as file:
+            con=file.read() 
+            for web in webList:
+                if web in con:
+                    pass
+                else:
+                    file.write(redirect + " " + web + "\n")
     else:
-        return "The word doesn't exist. Please double check it."
-word = input("Enter word: ")
-output = translate(word)
-if type(output) == list:
-    for item in output:
-        print(item)
-else:
-    print(output)
+        with open(ho , 'r+') as file:
+            con=file.readlines()
+            file.seek(0)
+            for line in con:
+                if not any(web in line for web in webList):
+                    file.write(line)
+            file.truncate()
+        print("fun hours!!")
+    time.sleep(5)
